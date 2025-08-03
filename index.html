@@ -40,11 +40,11 @@
     }
 
     function calculate() {
-      const a = parseInt(document.getElementById('a').value);
+      const a = parseFloat(document.getElementById('a').value);
       const b = parseInt(document.getElementById('b').value);
       const c = parseInt(document.getElementById('c').value);
       const e = parseInt(document.getElementById('e').value);
-      const g = parseInt(document.getElementById('g').value);
+      const g = parseFloat(document.getElementById('g').value);
       const h = 1800;
 
       if ([a, b, c, e, g].some(v => isNaN(v))) {
