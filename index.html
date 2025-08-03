@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>ポイント計算サイト</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body { font-family: sans-serif; padding: 20px; }
+    label, input { display: block; margin: 10px 0; }
+    input[type="number"] { width: 100%; max-width: 200px; }
+    button { margin-top: 15px; padding: 10px; }
+  </style>
+</head>
+<body>
+  <h1>ポイント計算サイト</h1>
+  
+  <label>現在のポイント（a）:
+    <input type="number" id="a" required>
+  </label>
+  <label>アクセサリーの価格（b 円）:
+    <input type="number" id="b" required>
+  </label>
+  <label>ポイント付与率（c %）:
+    <input type="number" id="c" required>
+  </label>
+  <label>Apple Watch の価格（e 円）:
+    <input type="number" id="e" required>
+  </label>
+  <label>Apple Watch のポイント付与率（g %）:
+    <input type="number" id="g" required>
+  </label>
+
+  <button onclick="calculate()">f を計算する</button>
+
+  <h2 id="result"></h2>
+
+  <script>
+    function ceil(x) {
+      return Math.ceil(x);
+    }
+
+    function calculate() {
+      const a = parseInt(document.getElementById('a').value);
+      const b = parseInt(document.getElementById('b').value);
+      const c = parseInt(document.getElementById('c').value);
+      const e = parseInt(document.getElementById('e').value);
+      const g = parseInt(document.getElementById('g').value);
+      const h = 1800;
+
+      if ([a, b, c, e, g].some(v => isNaN(v))) {
+        document.getElementById('result').textContent = 'すべての項目を入力してください。';
+        return;
+      }
+
+      const d = a + ceil(b * c / 100);
+      const f = e - ceil((h - d) * 100 / g);
+
+      if (f < 0 || f > e) {
+        document.getElementById('result').textContent = `条件に合うfが見つかりません（結果: ${f}）。`;
+        return;
+      }
+
+      document.getElementById('result').textContent = `利用すべきポイント f は ${f} ポイントです。`;
+    }
+  </script>
+</body>
+</html>
