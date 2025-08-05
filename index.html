@@ -2,66 +2,30 @@
 <html lang="ja">
 <head>
   <meta charset="UTF-8">
-  <title>ポイント計算サイト</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <style>
-    body { font-family: sans-serif; padding: 20px; }
-    label, input { display: block; margin: 10px 0; }
-    input[type="number"] { width: 100%; max-width: 200px; }
-    button { margin-top: 15px; padding: 10px; }
-  </style>
+  <title>ポイント利用計算</title>
 </head>
 <body>
-  <h1>ポイント計算サイト</h1>
-  
-  <label>現在のポイント（a）:
-    <input type="number" id="a" required>
-  </label>
-  <label>アクセサリーの価格（b 円）:
-    <input type="number" id="b" required>
-  </label>
-  <label>ポイント付与率（c %）:
-    <input type="number" id="c" required>
-  </label>
-  <label>Apple Watch の価格（e 円）:
-    <input type="number" id="e" required>
-  </label>
-  <label>Apple Watch のポイント付与率（g %）:
-    <input type="number" id="g" required>
-  </label>
+  <h1>ポイント利用計算</h1>
+  <form id="point-form">
+    <label for="a">現在のポイント a：</label>
+    <input type="number" id="a" required><br><br>
 
-  <button onclick="calculate()">f を計算する</button>
+    <label for="b">Apple Watchの価格 b（円）：</label>
+    <input type="number" id="b" required><br><br>
 
-  <h2 id="result"></h2>
+    <label for="rate">ポイント付与率（%）：</label>
+    <input type="number" id="rate" value="3" required><br><br>
 
-  <script>
-    function ceil(x) {
-      return Math.ceil(x);
-    }
+    <label for="target">目標ポイント（h）：</label>
+    <input type="number" id="target" value="1800" required><br><br>
 
-    function calculate() {
-      const a = parseFloat(document.getElementById('a').value);
-      const b = parseInt(document.getElementById('b').value);
-      const c = parseInt(document.getElementById('c').value);
-      const e = parseInt(document.getElementById('e').value);
-      const g = parseFloat(document.getElementById('g').value);
-      const h = 1800;
+    <button type="submit">計算</button>
+  </form>
 
-      if ([a, b, c, e, g].some(v => isNaN(v))) {
-        document.getElementById('result').textContent = 'すべての項目を入力してください。';
-        return;
-      }
+  <h2>結果：</h2>
+  <p id="result"></p>
 
-      const d = a + ceil(b * c / 100);
-      const f = e - ceil((h - d) * 100 / g);
-
-      if (f < 0 || f > e) {
-        document.getElementById('result').textContent = `条件に合うfが見つかりません（結果: ${f}）。`;
-        return;
-      }
-
-      document.getElementById('result').textContent = `利用すべきポイント f は ${f} ポイントです。`;
-    }
-  </script>
+  <script src="script.js"></script>
 </body>
 </html>
